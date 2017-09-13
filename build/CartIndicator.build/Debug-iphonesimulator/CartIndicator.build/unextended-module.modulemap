@@ -1,0 +1,10 @@
+framework module CartIndicator {
+  umbrella header "CartIndicator.h"
+
+  export *
+  module * { export * }
+}
+
+module CartIndicator.__Swift {
+    exclude header "CartIndicator-Swift.h"
+}

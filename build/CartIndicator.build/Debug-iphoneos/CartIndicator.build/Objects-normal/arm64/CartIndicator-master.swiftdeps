@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "ff720d9817aff3ec9cb49b5aa982f018"
+build_time: [558626157, 623750000]
+inputs:
+  "/Volumes/Bulk/Dev/DevelopedFrameworks/CartIndicator/CartIndicator/CartView.swift": [9223372036854775807, 0]

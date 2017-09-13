@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5081F1AE1F64A456002BFEAE /* CartIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5081F1AC1F64A456002BFEAE /* CartIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5081F1B51F64A46B002BFEAE /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081F1B41F64A46B002BFEAE /* CartView.swift */; };
-		5081F1B71F64A653002BFEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5081F1B61F64A653002BFEAE /* Assets.xcassets */; };
 		5081F1BF1F64ABD2002BFEAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081F1BE1F64ABD2002BFEAE /* AppDelegate.swift */; };
 		5081F1C11F64ABD2002BFEAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081F1C01F64ABD2002BFEAE /* ViewController.swift */; };
 		5081F1C41F64ABD2002BFEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5081F1C21F64ABD2002BFEAE /* Main.storyboard */; };
@@ -142,6 +141,7 @@
 				5081F1A51F64A456002BFEAE /* Frameworks */,
 				5081F1A61F64A456002BFEAE /* Headers */,
 				5081F1A71F64A456002BFEAE /* Resources */,
+				5066B2231F696C80007EEF2C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -218,7 +218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5081F1B71F64A653002BFEAE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +232,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5066B2231F696C80007EEF2C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\nmkdir -p  \"$UNIVERSAL_OUTPUTFOLDER\"\n\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: Detected, stopping\"\nelse\nexport ALREADYINVOKED=\"true\"\n\n\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO BITCODE_GENERATION_MODE=bitcode -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules (from iphonesimulator build) to the copied framework directory\nif [ \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\" ] ; then\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\" 2>/dev/null || :\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to Move the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step Added . Remove the build folder create in project directory\nrm -Rf \"${PROJECT_NAME}\"/build\n\n# Step 6. Convenience step to open the project's directory in Finder\n#open \"${PROJECT_DIR}\"\n\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5081F1A41F64A456002BFEAE /* Sources */ = {
@@ -472,6 +487,7 @@
 				5081F1B31F64A456002BFEAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5081F1CB1F64ABD2002BFEAE /* Build configuration list for PBXNativeTarget "CartIndicatorDemo" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +496,7 @@
 				5081F1CD1F64ABD2002BFEAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

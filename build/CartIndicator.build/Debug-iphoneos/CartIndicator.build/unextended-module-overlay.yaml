@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/sameh/Library/Developer/Xcode/DerivedData/CartIndicator-ewkmcdmnuoqryxflkxibcutfryqg/Build/Products/Debug-iphoneos/CartIndicator.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Volumes/Bulk/Dev/DevelopedFrameworks/CartIndicator/build/CartIndicator.build/Debug-iphoneos/CartIndicator.build/unextended-module.modulemap',
+    }]
+  }]
+}

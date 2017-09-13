@@ -15,9 +15,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        cartView.plusImage = #imageLiteral(resourceName: "plusImage")
-        cartView.minusImage = #imageLiteral(resourceName: "minusImage")
-        
+        //cartView.plusImage = #imageLiteral(resourceName: "plusImage")
+        //cartView.minusImage = #imageLiteral(resourceName: "minusImage")
+        cartView.plusText = "+"
+        cartView.minusText = "–"
+        cartView.color = UIColor.lightGray
+        cartView.buttonFont = UIFont.boldSystemFont(ofSize: 18.0)
     }
 
     override func didReceiveMemoryWarning() {
