@@ -9,14 +9,16 @@
 import Foundation
 import UIKit
 
-public class CartView:UIControl
+public class CartIndicator:UIControl
 {
     var holder:UIView!
     var plus:UIButton!
     var minus:UIButton!
-    var indicator:UILabel!
+    var indicator:UILabel?
+    
     public var maxValue:Int?
     public var minValue:Int =  0
+    
     public var color:UIColor?{
         didSet{
             holder.layer.borderColor = color?.cgColor
@@ -29,13 +31,14 @@ public class CartView:UIControl
             plus.setTitle(nil, for: .normal)
         }
     }
+    
     public var minusImage:UIImage?{
         didSet{
             minus.setImage(self.minusImage, for: .normal)
             minus.setTitle(nil, for: .normal)
         }
     }
- 
+    
     public var plusText:String?{
         didSet{
             plus.setImage(nil, for: .normal)
@@ -58,20 +61,17 @@ public class CartView:UIControl
             minus.titleLabel?.font = buttonFont
         }
     }
-        public var labelFont:UIFont?{
-            didSet{
-                indicator.font = labelFont
-            }
-        }
     
-    
-    public var value:Int{
-        get{
-            print(Int(indicator.text ?? "0")!)
-            return Int(indicator.text ?? "0")!
+    public var labelFont:UIFont?{
+        didSet{
+            indicator?.font = labelFont
         }
-        set{
-            
+    }
+    
+    public var value:Int = 0{
+        didSet{
+            indicator?.text = String(value)
+            sendActions(for: .valueChanged)
         }
     }
     
@@ -114,9 +114,9 @@ public class CartView:UIControl
         
         //Indicator Label
         indicator = UILabel(frame: CGRect(x: 0, y: 0, width: indicatorContainer.frame.width, height: indicatorContainer.frame.height))
-        indicator?.text = "0"
-        indicator.textAlignment = .center
-        indicatorContainer.addSubview(indicator)
+        indicator?.textAlignment = .center
+        indicator?.text = String(value)
+        indicatorContainer.addSubview(indicator!)
         
         
         //Minus Sign
@@ -130,11 +130,13 @@ public class CartView:UIControl
         holder.addSubview(indicatorContainer)
         holder.addSubview(minusContainer)
         self.addSubview(holder)
+        
+        //Setting intial Value
     }
     
     
-     func addValue(){
-        let value = Int(indicator!.text!)!
+    @objc func addValue(){
+        //let value = Int(indicator!.text!)!
         guard maxValue == nil else {
             
             if maxValue! >= value {
@@ -142,26 +144,26 @@ public class CartView:UIControl
             }
             else
             {
-                indicator?.text = String(value + 1)
+                value += 1
+                //indicator?.text = String(value + 1)
             }
             
             return
             
         }
-        indicator?.text = String(value + 1)
-        self.sendActions(for: .valueChanged)
+        value += 1
+        //indicator?.text = String(value + 1)
+        //self.sendActions(for: .valueChanged)
     }
     
-     func subtractValue(){
-        let value = Int(indicator!.text!)!
+    @objc func subtractValue(){
         if value <=  minValue
         {
             return
         }
         else
         {
-            indicator?.text = String(value - 1)
-            self.sendActions(for: .valueChanged)
+            value -= 1
         }
     }
 }

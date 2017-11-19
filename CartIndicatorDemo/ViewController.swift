@@ -10,7 +10,7 @@ import UIKit
 import CartIndicator
 
 class ViewController: UIViewController {
-    @IBOutlet weak var cartView: CartView!
+    @IBOutlet weak var cartView: CartIndicator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
