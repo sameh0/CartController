@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         cartView.plusText = "+"
         cartView.minusText = "–"
         cartView.borderColor = UIColor.lightGray
+        cartView.buttonsColor = .red
         cartView.font = UIFont.boldSystemFont(ofSize: 18.0)
     }
 

@@ -34,9 +34,10 @@ public class CartIndicator:UIControl
 
     @IBInspectable public var buttonsColor:UIColor?
         {
-        didSet{
-            plus.tintColor = buttonsColor
-            minus.tintColor = buttonsColor
+        didSet
+        {
+            plus.setTitleColor(buttonsColor, for: .normal)
+            minus.setTitleColor(buttonsColor, for: .normal)
         }
     }
     
@@ -58,7 +59,6 @@ public class CartIndicator:UIControl
         didSet{
             plus.setImage(nil, for: .normal)
             plus.setTitle(plusText, for: .normal)
-            plus.setTitleColor(UIColor.black, for: .normal)
         }
     }
     
@@ -66,7 +66,6 @@ public class CartIndicator:UIControl
         didSet{
             minus.setImage(nil, for: .normal)
             minus.setTitle(minusText, for: .normal)
-            minus.setTitleColor(UIColor.black, for: .normal)
         }
     }
     
@@ -119,6 +118,7 @@ public class CartIndicator:UIControl
         plus.contentVerticalAlignment = .center
         plus.contentHorizontalAlignment = .center
         plus.imageView?.contentMode = .scaleAspectFit
+        plus.setTitleColor(buttonsColor, for: .normal)
         plusContainer.addSubview(plus)
         plus.addTarget(self, action: #selector(addValue), for: .touchDown)
         
@@ -134,6 +134,7 @@ public class CartIndicator:UIControl
         minus = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
         minus.imageView?.contentMode = .scaleAspectFit
         minus.center = minusContainer.center
+        minus.setTitleColor(buttonsColor, for: .normal)
         minusContainer.addSubview(minus)
         minus.addTarget(self, action: #selector(subtractValue), for: .touchDown)
         
