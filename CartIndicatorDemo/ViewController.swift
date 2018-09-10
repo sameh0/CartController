@@ -19,8 +19,8 @@ class ViewController: UIViewController {
         //cartView.minusImage = #imageLiteral(resourceName: "minusImage")
         cartView.plusText = "+"
         cartView.minusText = "–"
-        cartView.color = UIColor.lightGray
-        cartView.buttonFont = UIFont.boldSystemFont(ofSize: 18.0)
+        cartView.borderColor = UIColor.lightGray
+        cartView.font = UIFont.boldSystemFont(ofSize: 18.0)
     }
 
     override func didReceiveMemoryWarning() {

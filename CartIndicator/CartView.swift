@@ -19,27 +19,42 @@ public class CartIndicator:UIControl
     public var maxValue:Int?
     public var minValue:Int =  0
     
-    public var color:UIColor?{
+    @IBInspectable public var borderColor:UIColor?{
         didSet{
-            holder.layer.borderColor = color?.cgColor
+            holder.layer.borderColor = borderColor?.cgColor
         }
     }
     
-    public var plusImage:UIImage?{
+    @IBInspectable public var labelColor:UIColor?
+    {
+        didSet{
+            indicator?.textColor = labelColor
+        }
+    }
+
+    @IBInspectable public var buttonsColor:UIColor?
+        {
+        didSet{
+            plus.tintColor = buttonsColor
+            minus.tintColor = buttonsColor
+        }
+    }
+    
+    @IBInspectable public var plusImage:UIImage?{
         didSet{
             plus.setImage(self.plusImage, for: .normal)
             plus.setTitle(nil, for: .normal)
         }
     }
     
-    public var minusImage:UIImage?{
+    @IBInspectable public var minusImage:UIImage?{
         didSet{
             minus.setImage(self.minusImage, for: .normal)
             minus.setTitle(nil, for: .normal)
         }
     }
     
-    public var plusText:String?{
+    @IBInspectable public var plusText:String?{
         didSet{
             plus.setImage(nil, for: .normal)
             plus.setTitle(plusText, for: .normal)
@@ -47,7 +62,7 @@ public class CartIndicator:UIControl
         }
     }
     
-    public var minusText:String?{
+    @IBInspectable public var minusText:String?{
         didSet{
             minus.setImage(nil, for: .normal)
             minus.setTitle(minusText, for: .normal)
@@ -55,16 +70,11 @@ public class CartIndicator:UIControl
         }
     }
     
-    public var buttonFont:UIFont?{
+    public var font:UIFont?{
         didSet{
-            plus.titleLabel?.font = buttonFont
-            minus.titleLabel?.font = buttonFont
-        }
-    }
-    
-    public var labelFont:UIFont?{
-        didSet{
-            indicator?.font = labelFont
+            indicator?.font = font
+            plus.titleLabel?.font = font
+            minus.titleLabel?.font = font
         }
     }
     
@@ -97,14 +107,15 @@ public class CartIndicator:UIControl
         let containerWidth = holder.frame.width / 3
         
         //Containers
-        let plusContainer = UIView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: holder.frame.height))
+               let minusContainer = UIView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: holder.frame.height))
+        let plusContainer = UIView(frame: CGRect(x: containerWidth * 2, y: 0, width: containerWidth, height: holder.frame.height))
         let indicatorContainer = UIView(frame: CGRect(x: containerWidth, y: 0, width: containerWidth, height: holder.frame.height))
-        let minusContainer = UIView(frame: CGRect(x: containerWidth * 2, y: 0, width: containerWidth, height: holder.frame.height))
+ 
         
         
         //Plus Sign
         plus = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
-        plus.center = plusContainer.center
+        plus.center = CGPoint(x: plusContainer.bounds.midX, y: plusContainer.bounds.midY)
         plus.contentVerticalAlignment = .center
         plus.contentHorizontalAlignment = .center
         plus.imageView?.contentMode = .scaleAspectFit
@@ -122,7 +133,7 @@ public class CartIndicator:UIControl
         //Minus Sign
         minus = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
         minus.imageView?.contentMode = .scaleAspectFit
-        minus.center = CGPoint(x: minusContainer.bounds.midX, y: minusContainer.bounds.midY)
+        minus.center = minusContainer.center
         minusContainer.addSubview(minus)
         minus.addTarget(self, action: #selector(subtractValue), for: .touchDown)
         
