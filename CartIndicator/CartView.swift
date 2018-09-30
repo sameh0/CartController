@@ -9,12 +9,20 @@
 import Foundation
 import UIKit
 
-public class CartIndicator:UIControl
+public enum ActionType { case plus,minus }
+
+public protocol CartControllerDelegate:class
+{
+    func CartDidChange(operationType:ActionType,value:Int)
+}
+
+public class CartController:UIControl
 {
     var holder:UIView!
     var plus:UIButton!
     var minus:UIButton!
     var indicator:UILabel?
+    weak var delegate:CartControllerDelegate?
     
     public var maxValue:Int?
     public var minValue:Int =  0
@@ -69,18 +77,22 @@ public class CartIndicator:UIControl
         }
     }
     
-    public var font:UIFont?{
-        didSet{
+    public var font:UIFont?
+    {
+        didSet
+        {
             indicator?.font = font
             plus.titleLabel?.font = font
             minus.titleLabel?.font = font
         }
     }
     
-    public var value:Int = 0{
-        didSet{
+    public var value:Int = 0
+    {
+        didSet
+        {
             indicator?.text = String(value)
-            sendActions(for: .valueChanged)
+//            sendActions(for: .valueChanged)
         }
     }
     
@@ -113,14 +125,22 @@ public class CartIndicator:UIControl
         
         
         //Plus Sign
-        plus = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
-        plus.center = CGPoint(x: plusContainer.bounds.midX, y: plusContainer.bounds.midY)
-        plus.contentVerticalAlignment = .center
-        plus.contentHorizontalAlignment = .center
-        plus.imageView?.contentMode = .scaleAspectFit
-        plus.setTitleColor(buttonsColor, for: .normal)
+        plus =
+        {
+            let button = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
+            button.center = CGPoint(x: plusContainer.bounds.midX, y: plusContainer.bounds.midY)
+            button.contentVerticalAlignment = .center
+            button.contentHorizontalAlignment = .center
+            button.imageView?.contentMode = .scaleAspectFit
+            button.setTitleColor(buttonsColor, for: .normal)
+            button.isUserInteractionEnabled = false
+            return button
+        }()
+        
         plusContainer.addSubview(plus)
-        plus.addTarget(self, action: #selector(addValue), for: .touchDown)
+        
+        let plusTap = UITapGestureRecognizer(target: self, action: #selector(addValue))
+        plusContainer.addGestureRecognizer(plusTap)
         
         
         //Indicator Label
@@ -131,11 +151,22 @@ public class CartIndicator:UIControl
         
         
         //Minus Sign
-        minus = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
-        minus.imageView?.contentMode = .scaleAspectFit
-        minus.center = minusContainer.center
-        minus.setTitleColor(buttonsColor, for: .normal)
+        minus =
+        {
+            let button = UIButton(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
+            button.imageView?.contentMode = .scaleAspectFit
+            button.center = minusContainer.center
+            button.setTitleColor(buttonsColor, for: .normal)
+            button.isUserInteractionEnabled = false
+            return button
+        }()
+        
         minusContainer.addSubview(minus)
+        
+        let minusTap = UITapGestureRecognizer(target: self, action: #selector(subtractValue))
+        minusContainer.addGestureRecognizer(minusTap)
+        
+        
         minus.addTarget(self, action: #selector(subtractValue), for: .touchDown)
         
         holder.addSubview(plusContainer)
@@ -146,29 +177,29 @@ public class CartIndicator:UIControl
         //Setting intial Value
     }
     
-    
-    @objc func addValue(){
-        //let value = Int(indicator!.text!)!
-        guard maxValue == nil else {
-            
-            if maxValue! >= value {
+    @objc func addValue()
+    {
+        guard maxValue == nil else
+        {
+            if maxValue! >= value
+            {
                 return
             }
             else
             {
                 value += 1
-                //indicator?.text = String(value + 1)
+                delegate?.CartDidChange(operationType: .minus, value: value)
             }
             
             return
-            
         }
+        
         value += 1
-        //indicator?.text = String(value + 1)
-        //self.sendActions(for: .valueChanged)
+        delegate?.CartDidChange(operationType: .minus, value: value)
     }
     
-    @objc func subtractValue(){
+    @objc func subtractValue()
+    {
         if value <=  minValue
         {
             return
@@ -176,6 +207,7 @@ public class CartIndicator:UIControl
         else
         {
             value -= 1
+            delegate?.CartDidChange(operationType: .minus, value: value)
         }
     }
 }
