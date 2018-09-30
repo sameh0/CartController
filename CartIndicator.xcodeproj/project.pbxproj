@@ -17,6 +17,7 @@
 		5081F1CE1F64AC43002BFEAE /* CartIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5081F1A91F64A456002BFEAE /* CartIndicator.framework */; };
 		5081F1CF1F64AC43002BFEAE /* CartIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5081F1A91F64A456002BFEAE /* CartIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5081F1D31F64AC91002BFEAE /* Assets.xcassets in Sources */ = {isa = PBXBuildFile; fileRef = 5081F1B61F64A653002BFEAE /* Assets.xcassets */; };
+		50BDA44C21469E0D00BCE8DA /* CartView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 5081F1B41F64A46B002BFEAE /* CartView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5081F1AE1F64A456002BFEAE /* CartIndicator.h in Headers */,
+				50BDA44C21469E0D00BCE8DA /* CartView.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +191,7 @@
 					5081F1BB1F64ABD1002BFEAE = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = V862M46692;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -445,7 +448,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Radvy.CartIndicatorDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -459,7 +463,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Radvy.CartIndicatorDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
