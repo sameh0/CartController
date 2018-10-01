@@ -188,14 +188,14 @@ public class CartController:UIControl
             else
             {
                 value += 1
-                delegate?.CartDidChange(operationType: .minus, value: value)
+                delegate?.CartDidChange(operationType: .plus, value: value)
             }
             
             return
         }
         
         value += 1
-        delegate?.CartDidChange(operationType: .minus, value: value)
+        delegate?.CartDidChange(operationType: .plus, value: value)
     }
     
     @objc func subtractValue()
