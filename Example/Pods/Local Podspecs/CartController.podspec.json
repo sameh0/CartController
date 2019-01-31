@@ -1,0 +1,22 @@
+{
+  "name": "CartController",
+  "version": "0.1.0",
+  "summary": "A short description of CartController.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/sameh-hst/CartController",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "sameh-hst": "samehsayed0@hotmail.com"
+  },
+  "source": {
+    "git": "https://github.com/sameh-hst/CartController.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "CartController/Classes/**/*"
+}

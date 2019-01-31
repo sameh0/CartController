@@ -1,0 +1,16 @@
+PODS:
+  - CartController (0.1.0)
+
+DEPENDENCIES:
+  - CartController (from `../`)
+
+EXTERNAL SOURCES:
+  CartController:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CartController: cbf228078b2d84b377dc0585821a00d12e734600
+
+PODFILE CHECKSUM: 6402ca83494602a439ab62c05d5d2d04c3d7130d
+
+COCOAPODS: 1.5.3

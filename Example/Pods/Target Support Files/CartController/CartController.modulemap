@@ -1,0 +1,6 @@
+framework module CartController {
+  umbrella header "CartController-umbrella.h"
+
+  export *
+  module * { export * }
+}

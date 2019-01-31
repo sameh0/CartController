@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CartController_Example' do
+  pod 'CartController', :path => '../'
+
+  target 'CartController_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
