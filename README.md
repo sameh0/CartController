@@ -22,7 +22,7 @@ pod 'CartController'
 
 ## Author
 
-sameh-hst, samehsayed0@hotmail.com
+sameh, samehsayed0@hotmail.com
 
 ## License
 
